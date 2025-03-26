@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2025-03-26T17:08:37 IST" name="Default suite" finished-at="2025-03-26T17:08:38 IST" duration-ms="1441">
+    <groups>
+    </groups>
+    <test started-at="2025-03-26T17:08:37 IST" name="Default test" finished-at="2025-03-26T17:08:38 IST" duration-ms="1441">
+      <class name="day3.Loggers">
+        <test-method signature="testLogs()[pri:1, instance:day3.Loggers@4febb875]" started-at="2025-03-26T17:08:37 IST" name="testLogs" finished-at="2025-03-26T17:08:38 IST" duration-ms="1402" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testLogs -->
+      </class> <!-- day3.Loggers -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
