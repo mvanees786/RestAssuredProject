@@ -9,131 +9,60 @@ import java.util.HashMap;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
 
-public class DifferentWaysToCreatePOSTRequestBody {
+import io.restassured.http.ContentType;
 
-	//Using HASHMAP
-	@Test(priority=1)
-	void postUsingHashMap() {
-		HashMap data =new HashMap();
-		data.put("name", "Anees");
-		data.put("location", "UAE");
-		data.put("phone", "123456");
+public class DifferentWaysToCreatePOSTRequestBody {
+	
+	//@Test(priority=1)
+	public void postUsingHashMap() {
 		
-		String courseArray[]= {"C++", "Java"};
-		data.put("Courses", courseArray);
+		HashMap data =new HashMap();
+		data.put("name", "AZEEM");
+		data.put("location", "Swiss");
+		data.put("phone", "123987");
+		String []courseArr= {"Python","MongoDB"};
+		data.put("courses", courseArr);
 		
 		given()
-			.contentType("application/json")
+			.contentType(ContentType.JSON)
 			.body(data)
 		.when()
-			.post("http://localhost:3000/students/")
-		
+			.post("http://localhost:3000/students")
 		.then()
 			.statusCode(201)
-			.body("name",equalTo("Anees"))
-			.body("location",equalTo("UAE"))
-			.body("phone",equalTo("123456"))
-			.body("courses[0]",equalTo("C++"))
-			.body("courses[1]",equalTo("Java"))
-			.header("Content-Type","application/json;charset=utf-8")
+			.body("name", equalTo("AZEEM"))
+			.header("Content-Type", "application/json")
 			.log().all();
-
-	
-	
-	}
-	@Test(priority=2)
-	void deleteTest() {
 		
+	}
+	
+	@Test(priority=1)
+		public void orgJSON() {
+		
+		
+		JSONObject data =new JSONObject();
+		data.put("name", "AZEEM");
+		data.put("location", "Swiss");
+		data.put("phone", "123987");
+		String []courseArr= {"Python","MongoDB"};
+		data.put("courses", courseArr);
 		
 		given()
+			.contentType(ContentType.JSON)
+			.body(data.toString())
 		.when()
-			.delete("http://localhost:3000/students/4")
-
+			.post("http://localhost:3000/students")
 		.then()
-		.statusCode(anyOf(equalTo(200), equalTo(204)));
+			.statusCode(201)
+			.body("name", equalTo("AZEEM"))
+			.header("Content-Type", "application/json")
+			.log().all();
+	
 	}
 	
-		//Using Org.JSON
-		//@Test(priority=1)
-		void postUsingJSON() {
-			JSONObject data =new JSONObject();	
-			data.put("name", "Anees");
-			data.put("location", "UAE");
-			data.put("phone", "123456");
-			
-			String courseArray[]= {"C++", "Java"};
-			data.put("Courses", courseArray);
-			
-			given()
-				.contentType("application/json")
-				.body(data.toString())
-			.when()
-				.post("http://localhost:3000/students")
-			
-			.then()
-				.statusCode(201)
-				.body("name",equalTo("Anees"))
-				.body("Location",equalTo("UAE"))
-				.body("Phone",equalTo("123456"))
-				.body("courses[0]",equalTo("C++"))
-				.body("courses[1]",equalTo("Java"))
-				.header("Content-Type","application/json;charset=utf-8")
-				.log().all();
-		
-		}
-		//@Test(priority=2)
-		void deleteTest2() {
-			
-			
-			given()
-			.when()
-				.post("http://localhost:3000/students/4")
-
-			.then()
-				.statusCode(200);
-		}
-		
-//USING POJO		
-		//@Test(priority=1)
-		void postUsingPOJO() {
-			POJO data=new POJO();
-			data.setName("Anees");
-			data.setLocation("UAE");
-			data.setPhone("123465");
-		
-			
-			String courseArray[]= {"C++", "Java"};
-			data.setCourses(courseArray);
-			
-			given()
-				.contentType("application/json")
-				.body(data)
-			.when()
-				.post("http://localhost:3000/students/")
-			
-			.then()
-				.statusCode(201)
-				.body("name",equalTo("Anees"))
-				.body("location",equalTo("UAE"))
-				.body("phone",equalTo("123456"))
-				.body("courses[0]",equalTo("C++"))
-				.body("courses[1]",equalTo("Java"))
-				.header("Content-Type","application/json;charset=utf-8")
-				.log().all();
-
-		
-		
-		}
-	//	@Test(priority=2)
-		void deleteTest3() {
-			
-			
-			given()
-			.when()
-				.delete("http://localhost:3000/students/4")
-
-			.then()
-				.statusCode(200);
-		}
+	
+	
+	
+	
 	
 }

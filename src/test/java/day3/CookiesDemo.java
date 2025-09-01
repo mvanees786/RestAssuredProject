@@ -10,41 +10,22 @@ import org.testng.annotations.Test;
 
 import io.restassured.response.Response;
 public class CookiesDemo {
-
-	String cookieValue="";
-	
 	
 	@Test(priority=1)
-	void getCookiesInfo() {
-		
-		Response res=given()
-		
-		.when()
-			.get("https://www.google.co.in/");
-		
-		//cookieValue=res.getCookie("AEC");
-		//System.out.println("Value of Cookie is "+ cookieValue);
-		
-		Map<String, String> cookieValues= res.getCookies();
-		for(String k:cookieValues.keySet()) {
-			
-		String	cookieValue=res.getCookie(k);
-			System.out.println(k+ "  "+ cookieValue);
-		}
-		
-		
-	}
-	
-	//@Test(priority=2)
 	void testCookies() {
 		
-		given()
-		
+	Response res=	given()
 		.when()
-			.get("https://www.google.co.in/")
-		.then()
-		.cookie("AEC",cookieValue)
-			.log().all();
-		
+			.get("https://www.google.com/");
+//	String cookieValue=res.getCookie("AEC");
+	
+	Map<String, String> cookiesAll = res.getCookies();
+	for(Map.Entry<String,String> entry: cookiesAll.entrySet()) {
+		System.out.println("KEY: "+entry.getKey()+" VALUE: "+ entry.getValue());
 	}
+	}
+	
+	
+	
+	
 }

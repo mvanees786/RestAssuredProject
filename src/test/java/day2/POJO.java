@@ -27,8 +27,8 @@ public class POJO {
 	public void setCourses(String[] courses) {
 		this.courses = courses;
 	}
-	String name;
-	String phone;
-	String location;
-	String courses[];
+	private String name;
+	private 	String phone;
+	private String location;
+	private String courses[];
 }

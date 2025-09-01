@@ -9,76 +9,53 @@ import java.util.HashMap;
 import org.testng.annotations.Test;
 
 public class HTTPRequests {
-	
 	int id;
 	
 	@Test(priority = 1)
 	void getUsers() {
-		
-		given()		
-		.when()
-			.get("https://reqres.in/api/users?page=2")
-		.then()
-			.statusCode(200)
-			.body("page",equalTo(2))
-			.log().all();	
+	given()
+	.when()
+		.get("https://reqres.in/api/users?page=2")
+	.then()
+	.body("page",equalTo(2))
+		.statusCode(200)
+		.log().body();
 	}
-	
-	@Test(priority=2)
-	void createUser() {
-		
-		HashMap data=new HashMap();
-		data.put("name","Anees");
-		data.put("job","IT");
 
-		id=given()
+	@Test(priority = 2)
+	void createUser() {
+		HashMap data =new HashMap() ;
+		data.put("name", "Anz");
+		data.put("job", "Engr");
+
+		 id=given()
+			.header("x-api-key", "reqres-free-v1")
 			.contentType("application/json")
 			.body(data)
 		.when()
 			.post("https://reqres.in/api/users")
 			.jsonPath().getInt("id");
-	//	.then()
-	//		.statusCode(201);
-	//		.log().all();
 		
+		System.out.println("ID:"+id);
 		
 	}
 	
-	@Test(priority=3,dependsOnMethods = {"createUser"})
+
+	@Test(priority = 3,dependsOnMethods = {"createUser"})
 	void updateUser() {
-
-		
-		HashMap data=new HashMap();
-		data.put("name","Anees");
-		data.put("job","Gym Trainer");
+		HashMap data =new HashMap() ;
+		data.put("name", "Anz");
+		data.put("job", "Doc");
 
 		given()
-			.contentType("application/json")
-			.body(data)
-		.when()
-			.put("https://reqres.in/api/users/"+id)				
-			
-		.then()	
-			.statusCode(200)	
-			.log().all();
-		
+		.header("x-api-key", "reqres-free-v1")
+		.contentType("application/json")
+		.body(data)
+	.when()
+		.post("https://reqres.in/api/users/"+id)
+	.then()
+		.log().body();
+	
 	}
 	
-	
-
-	@Test(priority=4,dependsOnMethods = {"updateUser"})
-	void deleteUser() {
-		
-		given()
-		 
-		
-		.when()
-			.delete("http://reqres.in/api/users/"+id)
-		.then()
-			.statusCode(301)
-			.log().all();
-		
-		
-	}
-	}
-
+}
